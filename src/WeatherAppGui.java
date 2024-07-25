@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+
 public class WeatherAppGui extends JFrame {
     public WeatherAppGui(){
         //set up our gui and add a title
@@ -51,6 +52,15 @@ public class WeatherAppGui extends JFrame {
         JLabel weatherConditionImage = new JLabel(loadImage("src/assets/cloudy.png"));
         weatherConditionImage.setBounds(0, 125, 450, 217);
         add(weatherConditionImage);
+
+        //temperature text
+        JLabel temperatureText = new JLabel("10 C");
+        temperatureText.setBounds(0, 350, 450, 54);
+        temperatureText.setFont(new Font("Dialog", Font.BOLD, 48));
+
+        // center the text
+        temperatureText.setHorizontalAlignment(SwingConstants.CENTER);
+        add(temperatureText);
     }
 
     //used to create images in our gui component:
