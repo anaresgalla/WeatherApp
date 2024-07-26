@@ -63,7 +63,13 @@ public class WeatherApp {
             JSONArray time = (JSONArray) hourly.get("time");
             int index = findIndexOfCurrentTime(time);
 
+            // get temperature
+            JSONArray temeratureData = (JSONArray) hourly.get("temperature_2m");
+            double temperature = (double) temeratureData.get(index);
 
+            // get weather code (API used has its own decoder for readability)
+            JSONArray weathercode = (JSONArray) hourly.get("weathercode");
+            String weatherCondition = convertWeatherCode((long) weathercode.get(index));
 
         }catch(Exception e){
             e.printStackTrace();
@@ -166,5 +172,27 @@ public class WeatherApp {
         String formattedDateTime = currentDateTime.format(formatter);
 
         return formattedDateTime;
+    }
+
+    // convert the weathercode into something more readable, according to the api's decoder
+    // weather conditions were grouped according to the data from the api to make it simpler
+    private static String convertWeatherCode(long weathercode){
+        String weatherCondition = "";
+
+        if(weathercode == 0L){
+            // clear
+            weatherCondition = "Clear";
+        }else if(weathercode > 0L && weathercode <= 3L){
+            //cloudy
+            weatherCondition = "Cloudy";
+        }else if((weathercode >= 51L && weathercode <= 67L)
+                    || (weathercode >= 80L && weathercode <= 99L)){
+            // rain
+            weatherCondition = "Rain";
+        }else if(weathercode >= 71L && weathercode <= 77L){
+            weatherCondition = "Snow";
+        }
+
+        return weatherCondition;
     }
 }
