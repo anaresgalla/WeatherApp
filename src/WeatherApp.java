@@ -79,6 +79,15 @@ public class WeatherApp {
             JSONArray windspeedData = (JSONArray) hourly.get("windspeed_10m");
             double windspeed = (double) windspeedData.get(index);
 
+            // build the weather JSON data object that we are going to access in our front end
+            JSONObject weatherData = new JSONObject();
+            weatherData.put("temperature", temperature);
+            weatherData.put("weather_condition", weatherCondition);
+            weatherData.put("humidity", humidity);
+            weatherData.put("windspeed", windspeed);
+
+            return weatherData;
+
         }catch(Exception e){
             e.printStackTrace();
         }
